@@ -12,4 +12,7 @@ void liberarTabla();
 
 void imprimirTabla();
 
+
+int buscarElemento(tipoelem *e);
+
 #endif

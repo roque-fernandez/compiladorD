@@ -11,7 +11,7 @@ struct celda {
 
 /*Extraer la clave de una celda */
 tipoclave _clave_elem(tipoelem *E) {
-    return E->identificador;
+    return E->id;
 }
 
 /* Esta funcion puente nos permite modificar el tipo de
@@ -38,7 +38,7 @@ void destruir(abb *A) {
     if (*A != NULL) {
         destruir(&(*A)->izq);
         destruir(&(*A)->der);
-        free((*A)->info.identificador);
+        free((*A)->info.id);
         free(*A);
         *A = NULL;
     }

@@ -16,7 +16,7 @@ void insertarElemento(char* id, int valor);
 void iniciarTabla();
 void liberarTabla();
 void imprimirTabla();
-void _printTable(abb A);
+void _impresionRecursivaArbol(abb A);
 
 void iniciarTabla(){
     //inicializamos la estructura de datos
@@ -24,32 +24,33 @@ void iniciarTabla(){
 
     //Array que contiene subarrays de dos elementos donde el primer 
     //elemento es un componente lexico y el segundo la palabra reservada
+    
+    //se insertan para que el ABB quede lo mas equilibrado posible
 
     char *lexemas[NUM_PALABRAS_RESERVADAS];
     lexemas[0] = "import";
-    lexemas[1] = "double";
+    lexemas[1] = "foreach";
     lexemas[2] = "int";
-    lexemas[3] = "while";
-    lexemas[4] = "for";
-    lexemas[5] = "foreach";
-    lexemas[6] = "return";
-    lexemas[7] = "void";
+    lexemas[3] = "for";
+    lexemas[4] = "return";
+    lexemas[5] = "double";
+    lexemas[6] = "void";
+    lexemas[7] = "while";
 
     int valores[NUM_PALABRAS_RESERVADAS];
     valores[0] = IMPORT;
-    valores[1] = DOUBLE;
+    valores[1] = FOREACH;
     valores[2] = INT;
-    valores[3] = WHILE;
-    valores[4] = FOR;
-    valores[5] = FOREACH;
-    valores[6] = RETURN;
-    valores[7] = VOID;
+    valores[3] = FOR;
+    valores[4] = RETURN;
+    valores[5] = DOUBLE;
+    valores[6] = VOID;
+    valores[7] = WHILE;
 
     //insertar las palabras reservadas en la tabla de simbolos
     for(int i = 0; i < NUM_PALABRAS_RESERVADAS; i++){
-        insertElement(lexemas[i], valores[i]);
+        insertarElemento(lexemas[i], valores[i]);
     }
-
 }
 
 void insertarElemento(char* id, int valor){
@@ -63,17 +64,31 @@ void insertarElemento(char* id, int valor){
     insertar(&tabla, e);
 }
 
+int buscarElemento(tipoelem *e){
+    //comprobamos si ya esta en la tabla de simbolos
+    if(es_miembro(tabla, *e)){
+        tipoelem aux;
+        //recuperamos su valor a partir del id
+        buscar_nodo(tabla, e->id, &aux);
+        e->valor = aux.valor;
+    //si no esta se tratara de un identificador nuevo, se inserta
+    }else{
+        e->valor = ID;
+        insertarElemento(e->id, e->valor);
+    }
+}
+
 void liberarTabla(){
     //liberacion del espacio del  abb
     destruir(&tabla);
 }
 
 void imprimirTabla(){
-    printf("************************");
-    printf("TABLA DE SIMBOLOS");
-    printf("************************");
+    printf("************************\n");
+    printf("TABLA DE SIMBOLOS\n");
+    printf("************************\n");
     _impresionRecursivaArbol(tabla);
-
+    printf("************************\n");
 }
 
 void _impresionRecursivaArbol(abb A){

@@ -10,28 +10,28 @@
 void procesar(){
     //COMPONENTE ACTUAL
     tipoelem e;
-    e.identificador = NULL;
+    e.id = NULL;
     //iniciamos el componente actual con el primer componente del archivo
-
-    //mientras no se alcance el fin de fichero se procesan los componentes
-    while(e.valor != EOF){
-
-    }
+    siguienteComponenteLexico(&e);
+    //borrar SOLO PARA PRUEBAS
+    int count=0;
+    int limit = 2;
 
     
-    do{
-        nextComponent(&e);
-
-        if(e.valor != EOFVALUE){
-            printf("\n<\"%s\", %d>",e.identificador, e.valor);
+    //mientras no se alcance el fin de fichero se procesan los componentes
+    while(e.valor != EOF_COMPONENT){
+    //while(count < limit){
+        printf("\n<\"%s\", %d>\n",e.id, e.valor);
+        //liberar identificador del componente
+        if(e.id != NULL){
+            free(e.id);
+            e.id = NULL;
         }
+        count++;
+        //pedir el siguiente componente al analizador lexico
+        siguienteComponenteLexico(&e);
+    }
+    
 
-        //se libera la memoria del identificador
-        if(e.identificador != NULL){
-            free(e.identificador);
-            e.identificador = NULL;
-        }
-
-    }while(e.valor != EOFVALUE);
 
 }

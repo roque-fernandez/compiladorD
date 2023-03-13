@@ -10,6 +10,12 @@
 #define FOREACH 305
 #define RETURN 306
 #define VOID 307
+#define IGUAL_IGUAL 308
+#define MAS_IGUAL 309
+#define MAS_MAS 310
+#define BINARIO 311
+#define STRING 320
+
 #define ID 350
 #define EOF_COMPONENT 400
 
