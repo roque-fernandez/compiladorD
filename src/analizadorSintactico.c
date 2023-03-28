@@ -13,10 +13,6 @@ void procesar(){
     e.id = NULL;
     //iniciamos el componente actual con el primer componente del archivo
     siguienteComponenteLexico(&e);
-    //borrar SOLO PARA PRUEBAS
-    int count=0;
-    int limit = 2;
-
     
     //mientras no se alcance el fin de fichero se procesan los componentes
     while(e.valor != EOF_COMPONENT){
@@ -27,7 +23,6 @@ void procesar(){
             free(e.id);
             e.id = NULL;
         }
-        count++;
         //pedir el siguiente componente al analizador lexico
         siguienteComponenteLexico(&e);
     }

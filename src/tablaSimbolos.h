@@ -13,6 +13,6 @@ void liberarTabla();
 void imprimirTabla();
 
 
-int buscarElemento(tipoelem *e);
+void buscarElemento(tipoelem *e);
 
 #endif

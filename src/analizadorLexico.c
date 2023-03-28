@@ -54,47 +54,44 @@ void siguienteComponenteLexico(tipoelem *e){
     //variable que guarda el tipo de caracter
     int tipo = tipoCaracterInicial(carActual);
 
-    printf("Caracter: %c\n", carActual);
-    printf("Tipo: %d\n", tipo);
-    
     while(!flagComponenteValido){
         
         //switch para decidir a que automata debe ir el componente lexico
         switch(tipo){
             case 1:
-                printf("AUTOMATA ALFANUMERICO\n");
+                //ALFANUMERICO
                 automataAlfanumerico(e);
                 flagComponenteValido = 1;
                 break;
             case 2:
-                printf("AUTOMATA NUMEROS\n");
+                //NUMEROS
                 automataNumeros(e);
                 flagComponenteValido = 1;
                 break;
             case 3:
-                printf("ESPACIADO\n");
+                //ESPACIADO
                 //se avanza el inicio ya que no se pasa el lexema al sintactico
                 carActual = siguienteCaracter();
                 tipo = tipoCaracterInicial(carActual);
                 avanzar();
                 break;
             case 4:
-                printf("EOF\n");
+                //EOF
                 e->valor = EOF_COMPONENT;
                 flagComponenteValido = 1;
                 break;
             case 5:
-                printf("AUTOMATA OPERADORES\n");
+                //OPERADORES
                 automataOperadores(e);
                 flagComponenteValido = 1;
                 break;
             case 6:
-                printf("AUTOMATA STRINGS\n");
+                //STRINGS
                 automataStrings(e);
                 flagComponenteValido = 1;
                 break;
             case 7:
-                printf("AUTOMATA COMENTARIOS\n");
+                //COMENTARIOS
                 //caso de que se detecte una / que sea un operador y no un comentario
                 if(automataComentarios(e)){
                     tipo = 5;
@@ -106,7 +103,6 @@ void siguienteComponenteLexico(tipoelem *e){
                                 
                 break;
             default:
-                printf("Caracter no identificado");
                 imprimirError(4);
         }
     }
@@ -119,10 +115,8 @@ void siguienteComponenteLexico(tipoelem *e){
 
 void automataAlfanumerico(tipoelem *e){
     //aceptamos como validos numeros letras y _
-    printf("Caracter: %c\n", carActual);
     while( isalnum(carActual) || carActual == '_'){
         carActual = siguienteCaracter();
-        printf("Caracter: %c\n", carActual);
     }
     //retrocedemos en el SE ya que el lexema acaba en el siguiente caracter
     retroceder();
@@ -136,7 +130,6 @@ void automataNumeros(tipoelem *e){
     //[0]Int normal [1]Double [2]Int Binario [3]Double con exponente 
     int tipoNumeros = 0;
     int fin = 0;
-    int flagExponente = 0;
     
     //determinar si es binario
     if(carActual == '0'){
@@ -149,7 +142,7 @@ void automataNumeros(tipoelem *e){
             retroceder();
         }
     }
-    printf("Caracter: %c\n", carActual);
+
     while(fin == 0){
         carActual = siguienteCaracter();
         
@@ -203,8 +196,6 @@ void automataNumeros(tipoelem *e){
                 fin = 1;
             }
         }
-        
-        printf("Caracter: %c\n", carActual);
     }
     //retrocedemos en el SE ya que el num acaba en el siguiente caracter
     retroceder();
@@ -222,12 +213,10 @@ void automataNumeros(tipoelem *e){
 }
 
 void automataOperadores(tipoelem *e){
-    printf("Caracter: %c\n", carActual);
     //operadores que tener dos caracteres
     //caso es += o ++
     if(carActual == '+'){
         carActual = siguienteCaracter();
-        printf("Caracter: %c\n", carActual);
         if(carActual == '+'){ 
             e->valor = MAS_MAS;
         }  
@@ -236,17 +225,20 @@ void automataOperadores(tipoelem *e){
         }
         else{
             retroceder();
+            //asignamos el valor ascii del caracter
+            e->valor = (int) carActual;
         }
     }
     //caso es ==
     else if(carActual == '='){
         carActual = siguienteCaracter();
-        printf("Caracter: %c\n", carActual);
         if(carActual == '='){
             e->valor = IGUAL_IGUAL;
         }   
         else{
             retroceder();
+            //asignamos el valor ascii del caracter
+            e->valor = (int) carActual;
         }
     }
     //caso normal
@@ -326,7 +318,6 @@ int automataComentarios(tipoelem *e){
                 carActual = siguienteCaracter();
                 if(carActual == '+'){
                     contador++;
-                    printf("ABIERTO UN COMENTARIO, CONTADOR: %d\n",contador);
                 }
                 else{
                     retroceder();
@@ -337,7 +328,6 @@ int automataComentarios(tipoelem *e){
                 carActual = siguienteCaracter();
                 if(carActual == '/'){
                     contador--;
-                    printf("CERRADO UN COMENTARIO, CONTADOR: %d\n",contador);
                 }
                 else{
                     retroceder();

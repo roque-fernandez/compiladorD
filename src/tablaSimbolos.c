@@ -64,7 +64,7 @@ void insertarElemento(char* id, int valor){
     insertar(&tabla, e);
 }
 
-int buscarElemento(tipoelem *e){
+void buscarElemento(tipoelem *e){
     //comprobamos si ya esta en la tabla de simbolos
     if(es_miembro(tabla, *e)){
         tipoelem aux;

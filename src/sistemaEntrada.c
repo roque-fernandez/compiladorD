@@ -35,7 +35,7 @@ void iniciarSistemaEntrada(char *archivoEntrada){
     fin = A;
     //cargar datos en el primer buffer
     cargarBuffer(0);
-    imprimirBuffer(0);
+    //imprimirBuffer(0);
 }
 
 //devuelve al analizador lexico el caracter correspondiente
@@ -188,9 +188,9 @@ void imprimirBuffer(int codigoBuffer){
 void omitirComentario(){
     //se comprueba el puntero de fin para que no se quede al finall de un buffer
     if (fin == A+TAM){
-        cargarBuffer(B);
+        cargarBuffer(1);
     }else if(fin == B+TAM){
-        cargarBuffer(A);
+        cargarBuffer(0);
     }
     //se actualiza el puntero de inicio para que cuando
     //se devuelva el siguiente lexema no se tenga en cuenta el comentario

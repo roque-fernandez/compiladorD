@@ -19,15 +19,10 @@ void imprimirError(int codigo){
             break;
         case 4:
             printf(ROJO_T "\nError: Caracter desconocido\n");
+            exit(EXIT_FAILURE);
             break;
         case 5:
             printf(ROJO_T "\nError: Formato de exponente incorrecto\n");
-            break;
-        case 6:
-            printf("\nError: la mantissa necesita digitos\n");
-            break;
-        case 7:
-            printf("\nError: no se puede usar E como exponente en hexadecimal\n");
             break;
         default:
             printf(ROJO_T "\nError: Desconocido\n");

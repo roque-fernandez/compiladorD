@@ -10,7 +10,7 @@
 
 int main(){
     //dar comienzo al sistema de entrada
-    iniciarSistemaEntrada("demo.d");
+    iniciarSistemaEntrada("regression.d");
 
     //inicializar tabla de simbolos y mostrarla por pantalla
     iniciarTabla();
@@ -18,18 +18,9 @@ int main(){
 
     //iniciar el procesamiento del analizador sintactico
     procesar();
-    
-    //PRUEBAS BORRAR
-    
-    
-
-    //volver a imprimir la tabla de simbolos
-    //imprimirTabla();
 
     //liberacion de memoria de la tabla y del sistema de entrada
     liberarTabla();
     liberarSistemaEntrada();
     
-    //PRUEBAS BORRAR
-    //siguienteComponenteLexico();
 }
